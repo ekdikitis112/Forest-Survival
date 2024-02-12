@@ -8,9 +8,6 @@ var z
 var chunk_size
 var should_remove = true
 
-var max_trees: int = 30
-var actual_trees: int
-var rand: RandomNumberGenerator
 
 func _init(noise,x,z,chunk_size):
 	self.noise = noise
@@ -56,7 +53,7 @@ func generate_chunk():
 	surface_tool.generate_normals()
 	
 	#instansiate terrain mesh
-	terrain_mesh_instance = MeshInstance3D.new()
+	var terrain_mesh_instance = MeshInstance3D.new()
 	terrain_mesh_instance.mesh = surface_tool.commit()
 	terrain_mesh_instance.create_trimesh_collision()
 	terrain_mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
@@ -69,23 +66,4 @@ func generate_chunk():
 		water_mesh_instance.mesh.size = Vector2(chunk_size,chunk_size);
 		add_child(water_mesh_instance)
 		
-	
-	# tree placement
-	rand = RandomNumberGenerator.new()
-	actual_trees = rand.randi_range(0,max_trees)
-	while(actual_trees > 0):
-		var rand_x = rand.randi_range(1, chunk_size -1)
-		var rand_z = rand.randi_range(1, chunk_size -1)
-		var tree = Vector3(self.x + rand_x,0,self.z + rand_z)
-		for i in range(data_tool.get_vertex_count()):
-			var vertex = data_tool.get_vertex(i)
-			if(tree.x == int(vertex.x) && tree.z == int(vertex.z)):
-				if(vertex.y >= 0.6):
-					# place tree on this vertex
-					actual_trees -= 1
-					var tree_mesh_instance = preload("res://scenes/tree.tscn").instantiate()
-					tree_mesh_instance.position = vertex
-					tree_mesh_instance.create_trimesh_collision()
-					#print(tree_mesh_instance.position)
-					add_child(tree_mesh_instance)
-					break
+
