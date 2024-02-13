@@ -66,14 +66,18 @@ func update_chunks():
 	var p_x = int(player_translation.x) / chunk_size
 	var p_z = int(player_translation.z) / chunk_size
 	add_chunk(p_x,p_z)
+	var chunk = get_chunk(p_x,p_z)
+	if chunk != null:
+		chunk.should_remove = false
 	for x in range(p_x-(chunk_amount/chunk_sub_surfaces),p_x+(chunk_amount/chunk_sub_surfaces)):
 		for z in range(p_z-(chunk_amount/chunk_sub_surfaces),p_z+(chunk_amount/chunk_sub_surfaces)):
 			#print("player position: X: "+str(p_x)+" Z: "+str(p_z))
 			#print("chunk: X: "+str(x)+" Z: "+str(z)+"\n")
-			add_chunk(x,z)
-			var chunk = get_chunk(x,z)
-			if chunk != null:
-				chunk.should_remove = false
+			if(p_x != x && p_z != z):
+				add_chunk(x,z)
+				chunk = get_chunk(x,z)
+				if chunk != null:
+					chunk.should_remove = false
 	
 
 func clean_up_chunks():

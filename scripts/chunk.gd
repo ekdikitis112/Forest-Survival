@@ -38,7 +38,6 @@ func generate_chunk():
 	for i in range(data_tool.get_vertex_count()):
 		var vertex = data_tool.get_vertex(i)
 		vertex.y = noise.get_noise_3d(vertex.x + x,vertex.y,vertex.z + z) * 80
-		data_tool.get
 		
 		# check for water placement
 		if vertex.y <= 0.2:
@@ -53,11 +52,11 @@ func generate_chunk():
 	surface_tool.generate_normals()
 	
 	#instansiate terrain mesh
-	var terrain_mesh_instance = MeshInstance3D.new()
-	terrain_mesh_instance.mesh = surface_tool.commit()
-	terrain_mesh_instance.create_trimesh_collision()
-	terrain_mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-	add_child(terrain_mesh_instance)
+	var terrain_mesh = MeshInstance3D.new()
+	terrain_mesh.mesh = surface_tool.commit()
+	terrain_mesh.create_trimesh_collision()
+	terrain_mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	add_child(terrain_mesh)
 	
 	# create water for level under 0.2 (inclusive)
 	if water_exists:
