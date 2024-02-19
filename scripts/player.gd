@@ -1,5 +1,13 @@
 extends CharacterBody3D
 
+# signal to toggle inventory
+
+signal toggle_inventory()
+
+# player inventory
+
+@export var inventory_data : InventoryData
+
 # Player nodes
 
 @onready var eyes = $neck/head/eyes
@@ -74,7 +82,13 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _input(event):
+func _unhandled_input(event):
+	
+	# open and close inventory
+	
+	if Input.is_action_just_pressed("inventory"):
+		toggle_inventory.emit()
+	
 	# Mouse looking logic
 	
 	if event is InputEventMouseMotion:

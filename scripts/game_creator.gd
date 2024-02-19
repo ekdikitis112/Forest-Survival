@@ -11,12 +11,12 @@ func _ready():
 
 func _on_start_pressed():
 	if regex.search(text):
-		Globals.seed = int(text)
-		get_tree().change_scene_to_packed(preload("res://scenes/world.tscn"))
+		Globals.game_seed = int(text)
+		get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 
-func _on_line_edit_text_changed(text):
-	self.text = text
+func _on_line_edit_text_changed(input):
+	self.text = input
 	if regex.search(text):
 		start.disabled = false
 	else:
@@ -26,6 +26,6 @@ func _on_line_edit_text_changed(text):
 
 func _on_randomize_pressed():
 	#15 length integer number
-	Globals.seed = RandomNumberGenerator.new().randi_range(0,9999999999)
-	self.text = str(Globals.seed)
+	Globals.game_seed = RandomNumberGenerator.new().randi_range(0,9999999999)
+	self.text = str(Globals.game_seed)
 	line_edit.text = self.text

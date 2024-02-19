@@ -1,4 +1,4 @@
 extends Node
 
-var seed : int
+var game_seed : int
 
