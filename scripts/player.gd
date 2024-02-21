@@ -8,6 +8,11 @@ signal toggle_inventory()
 
 @export var inventory_data : InventoryData
 
+# interact ray to know what you are looking at and interacting with
+
+@onready var interact_ray = $neck/head/InteractRay
+
+
 # Player nodes
 
 @onready var eyes = $neck/head/eyes
@@ -83,6 +88,10 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event):
+	
+	# interact with objects in the world
+	if  Input.is_action_just_pressed("interact"):
+		interact()
 	
 	# open and close inventory
 	
@@ -225,3 +234,8 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, current_speed)
 	last_velocity = velocity
 	move_and_slide()
+
+
+func interact():
+	if interact_ray.is_colliding():
+		interact_ray.get_collider().player_interact()

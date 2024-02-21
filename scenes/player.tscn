@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://onu8qwrhmrst"]
+[gd_scene load_steps=10 format=3 uid="uid://onu8qwrhmrst"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bc5js"]
 [ext_resource type="Resource" uid="uid://4eljovm1a2fh" path="res://test_inv.tres" id="2_pvxw5"]
+[ext_resource type="Texture2D" uid="uid://dhbdab5ctue1u" path="res://assets/UI/dot.png" id="3_yycwx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_poak8"]
 
@@ -124,8 +125,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="neck/head/eyes"]
 
+[node name="CanvasLayer" type="CanvasLayer" parent="neck/head/eyes/Camera3D"]
+
+[node name="Dot" type="TextureRect" parent="neck/head/eyes/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -7.5
+offset_right = 7.5
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_yycwx")
+expand_mode = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="neck/head/eyes"]
 root_node = NodePath("../../../../..")
 libraries = {
 "": SubResource("AnimationLibrary_tvgwf")
 }
+
+[node name="InteractRay" type="RayCast3D" parent="neck/head"]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 4

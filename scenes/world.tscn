@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://k2ji3d868hkr"]
+[gd_scene load_steps=18 format=3 uid="uid://k2ji3d868hkr"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_8wg6f"]
 [ext_resource type="Texture2D" uid="uid://c86wby6yre81g" path="res://assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_aeqjx"]
 [ext_resource type="PackedScene" uid="uid://onu8qwrhmrst" path="res://scenes/player.tscn" id="2_i7i3i"]
 [ext_resource type="Script" path="res://inventory/Inventory_Interface.gd" id="4_35f67"]
 [ext_resource type="PackedScene" uid="uid://dpa0a8u80jdbt" path="res://inventory/inventory.tscn" id="4_amtlx"]
-[ext_resource type="Material" uid="uid://c5y7hrnx51nyj" path="res://assets/materials/terrain.material" id="4_ld1xk"]
 [ext_resource type="Texture2D" uid="uid://druwblnp3e3jm" path="res://assets/textures/dev/grids/Dark/texture_07.png" id="5_ycghe"]
+[ext_resource type="PackedScene" uid="uid://bvi3btkaanoh" path="res://inventory/slot.tscn" id="6_on2mx"]
+[ext_resource type="PackedScene" uid="uid://e7khjssmknx" path="res://scenes/chest.tscn" id="9_0tpir"]
+[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_vondr"]
+[ext_resource type="Resource" uid="uid://cm3e5nc22ug86" path="res://item/items/blue_book.tres" id="10_2pu6v"]
+[ext_resource type="Script" path="res://inventory/slot_data.gd" id="11_67egc"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_35c0q"]
 panorama = ExtResource("2_aeqjx")
@@ -26,6 +30,15 @@ glow_enabled = true
 albedo_texture = ExtResource("5_ycghe")
 uv1_scale = Vector3(64, 64, 64)
 
+[sub_resource type="Resource" id="Resource_mw1fh"]
+script = ExtResource("11_67egc")
+item_data = ExtResource("10_2pu6v")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_bs5tq"]
+script = ExtResource("9_vondr")
+slot_datas = Array[ExtResource("11_67egc")]([SubResource("Resource_mw1fh"), null, null, null, null])
+
 [node name="world" type="Node3D"]
 script = ExtResource("1_8wg6f")
 
@@ -40,6 +53,7 @@ shadow_enabled = true
 environment = SubResource("Environment_2m328")
 
 [node name="player" parent="." instance=ExtResource("2_i7i3i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -60,9 +74,30 @@ offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("4_amtlx")]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_right = 0.0
+grow_horizontal = 0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("6_on2mx")]
+visible = false
+modulate = Color(1, 1, 1, 0.47451)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
 [node name="Test Floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.233305, 0)
-material_override = ExtResource("4_ld1xk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_overlay = SubResource("StandardMaterial3D_rxdjg")
 use_collision = true
 size = Vector3(1000, 1, 1000)
+
+[node name="Chest" parent="." instance=ExtResource("9_0tpir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+inventory_data = SubResource("Resource_bs5tq")
