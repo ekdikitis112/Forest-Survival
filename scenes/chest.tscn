@@ -1,24 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://e7khjssmknx"]
+[gd_scene load_steps=4 format=3 uid="uid://e7khjssmknx"]
 
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_1qg5w"]
+[ext_resource type="PackedScene" uid="uid://e187c06o8snx" path="res://assets/models/chest.glb" id="2_d75qk"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_artnk"]
-albedo_color = Color(0.878431, 0.933333, 0.372549, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_kafxe"]
-material = SubResource("StandardMaterial3D_artnk")
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y21dw"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_wsjv3"]
+size = Vector3(1.88211, 1.76883, 3.04627)
 
 [node name="Chest" type="StaticBody3D" groups=["external_inventory"]]
 collision_layer = 5
 script = ExtResource("1_1qg5w")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_kafxe")
+[node name="chest" parent="." instance=ExtResource("2_d75qk")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.0140787, 0.361863, 0.337793)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("ConcavePolygonShape3D_y21dw")
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.018692, 0.470123, 0.00530052)
+shape = SubResource("BoxShape3D_wsjv3")
