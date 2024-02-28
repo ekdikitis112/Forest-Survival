@@ -101,6 +101,7 @@ _data = {
 
 [node name="player" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+collision_layer = 2
 script = ExtResource("1_bc5js")
 inventory_data = ExtResource("2_pvxw5")
 

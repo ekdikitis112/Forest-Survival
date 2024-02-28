@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1pcvxqb5h0l3"]
+
+[ext_resource type="Texture2D" uid="uid://42r1rif04fyn" path="res://item/item_atlas.tres" id="1_k33lj"]
+[ext_resource type="Script" path="res://item/pick_up.gd" id="1_qwwbm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5sdkb"]
+radius = 0.372296
+
+[node name="PickUp" type="RigidBody3D"]
+collision_layer = 0
+lock_rotation = true
+script = ExtResource("1_qwwbm")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+texture_filter = 0
+texture = ExtResource("1_k33lj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_5sdkb")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_5sdkb")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

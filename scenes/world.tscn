@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://k2ji3d868hkr"]
+[gd_scene load_steps=20 format=3 uid="uid://k2ji3d868hkr"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_8wg6f"]
 [ext_resource type="Texture2D" uid="uid://c86wby6yre81g" path="res://assets/hdris/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_aeqjx"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_vondr"]
 [ext_resource type="Resource" uid="uid://cm3e5nc22ug86" path="res://item/items/blue_book.tres" id="10_2pu6v"]
 [ext_resource type="Script" path="res://inventory/slot_data.gd" id="11_67egc"]
+[ext_resource type="PackedScene" uid="uid://b1pcvxqb5h0l3" path="res://item/pick_up.tscn" id="12_3fhw7"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_35c0q"]
 panorama = ExtResource("2_aeqjx")
@@ -38,6 +39,11 @@ quantity = 1
 [sub_resource type="Resource" id="Resource_bs5tq"]
 script = ExtResource("9_vondr")
 slot_datas = Array[ExtResource("11_67egc")]([SubResource("Resource_mw1fh"), null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_trfve"]
+script = ExtResource("11_67egc")
+item_data = ExtResource("10_2pu6v")
+quantity = 1
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_8wg6f")
@@ -101,3 +107,7 @@ size = Vector3(1000, 1, 1000)
 [node name="Chest" parent="." instance=ExtResource("9_0tpir")]
 transform = Transform3D(-0.0846866, 0, -0.996408, 0, 1, 0, 0.996408, 0, -0.0846866, 0, 0, -4)
 inventory_data = SubResource("Resource_bs5tq")
+
+[node name="PickUp" parent="." instance=ExtResource("12_3fhw7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.566594, 1.39473, -3.99103)
+slot_data = SubResource("Resource_trfve")
