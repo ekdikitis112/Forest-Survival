@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://scripts/Globals.gd"
+PlayerManager="*res://player/player_manager.gd"
 
 [filesystem]
 

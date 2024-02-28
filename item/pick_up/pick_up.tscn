@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1pcvxqb5h0l3"]
 
 [ext_resource type="Texture2D" uid="uid://42r1rif04fyn" path="res://item/item_atlas.tres" id="1_k33lj"]
-[ext_resource type="Script" path="res://item/pick_up.gd" id="1_qwwbm"]
+[ext_resource type="Script" path="res://item/pick_up/pick_up.gd" id="1_qwwbm"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5sdkb"]
 radius = 0.372296

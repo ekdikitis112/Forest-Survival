@@ -7,11 +7,15 @@ signal toggle_inventory()
 # player inventory
 
 @export var inventory_data : InventoryData
+@export var equip_inventory_data : InventoryDataEquip
 
 # interact ray to know what you are looking at and interacting with
 
 @onready var interact_ray = $neck/head/InteractRay
 
+# player health
+
+var health: int = 5
 
 # Player nodes
 
@@ -85,6 +89,7 @@ var direction = Vector3.ZERO
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	PlayerManager.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event):
@@ -239,3 +244,10 @@ func _physics_process(delta):
 func interact():
 	if interact_ray.is_colliding():
 		interact_ray.get_collider().player_interact()
+
+func get_drop_position() -> Vector3:
+	var direction = -camera_3d.global_transform.basis.z
+	return camera_3d.global_position + direction
+
+func heal(heal_value: int):
+	health += heal_value

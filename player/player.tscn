@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://onu8qwrhmrst"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_bc5js"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_bc5js"]
 [ext_resource type="Resource" uid="uid://4eljovm1a2fh" path="res://test_inv.tres" id="2_pvxw5"]
 [ext_resource type="Texture2D" uid="uid://dhbdab5ctue1u" path="res://assets/UI/dot.png" id="3_yycwx"]
 
@@ -100,7 +100,6 @@ _data = {
 }
 
 [node name="player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 collision_layer = 2
 script = ExtResource("1_bc5js")
 inventory_data = ExtResource("2_pvxw5")

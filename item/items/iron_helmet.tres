@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=4 format=3 uid="uid://btnm7b3iudl8v"]
+
+[ext_resource type="Script" path="res://item/item_data_equip.gd" id="1_2ckq6"]
+[ext_resource type="Texture2D" uid="uid://b04mkfwv4fviw" path="res://item/#1 - Transparent Icons.png" id="2_n0pbo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5mjq"]
+atlas = ExtResource("2_n0pbo")
+region = Rect2(96, 224, 32, 32)
+
+[resource]
+script = ExtResource("1_2ckq6")
+defense = 1
+name = "Iron Helmet"
+description = "Protects from bonks"
+stackable = false
+texture = SubResource("AtlasTexture_o5mjq")
