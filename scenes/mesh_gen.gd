@@ -3,9 +3,13 @@ extends MeshInstance3D
 
 @export var xSize = 20
 @export var zSize = 20
-
+@export var terrain_height = 5
+@export var noise_offset = 0.5
 @export var update = false
 @export var clear_vert_vis = false
+
+@onready var min_height = 0
+@onready var max_height = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +27,13 @@ func generate_terrain():
 	
 	for z in range(zSize+1):
 		for x in range(xSize+1):
-			var y = n.get_noise_2d(x,z) * 5
+			var y = n.get_noise_2d(x*noise_offset,z*noise_offset) * terrain_height
+			
+			# set min and max
+			if y < min_height and y != null:
+				min_height = y
+			if y > max_height and y != null:
+				max_height = y
 			
 			var uv = Vector2()
 			uv.x = inverse_lerp(0,xSize,x)
@@ -31,7 +41,7 @@ func generate_terrain():
 			surftool.set_uv(uv)
 			
 			surftool.add_vertex(Vector3(x,y,z))
-			draw_sphere(Vector3(x,y,z))
+			#draw_sphere(Vector3(x,y,z))
 	
 	var vert = 0
 	for z in zSize:
@@ -48,9 +58,12 @@ func generate_terrain():
 	surftool.generate_normals()
 	a_mesh = surftool.commit()
 	mesh = a_mesh
-	
+	update_shader()
 
-	
+func update_shader():
+	var mat = get_active_material(0)
+	mat.set_shader_parameter("min_height",min_height)
+	mat.set_shader_parameter("max_height",max_height)
 
 func draw_sphere(pos:Vector3):
 	var ins = MeshInstance3D.new()
