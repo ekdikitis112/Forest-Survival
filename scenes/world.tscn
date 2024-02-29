@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://k2ji3d868hkr"]
+[gd_scene load_steps=30 format=3 uid="uid://k2ji3d868hkr"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_8wg6f"]
 [ext_resource type="PackedScene" uid="uid://onu8qwrhmrst" path="res://player/player.tscn" id="2_i7i3i"]
+[ext_resource type="Script" path="res://scenes/DayNightCycle.gd" id="2_litch"]
 [ext_resource type="Script" path="res://inventory/Inventory_Interface.gd" id="4_35f67"]
 [ext_resource type="PackedScene" uid="uid://dpa0a8u80jdbt" path="res://inventory/inventory.tscn" id="4_amtlx"]
 [ext_resource type="Script" path="res://inventory/inventory_data_equip.gd" id="4_itjam"]
@@ -15,80 +16,42 @@
 [ext_resource type="PackedScene" uid="uid://b1pcvxqb5h0l3" path="res://item/pick_up/pick_up.tscn" id="12_3fhw7"]
 [ext_resource type="Resource" uid="uid://cwho1cseci8ff" path="res://item/items/apple.tres" id="13_ag3ob"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8t3jm"]
+[sub_resource type="Gradient" id="Gradient_rctfw"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0.976471, 0.560784, 0.282353, 1, 0.858824, 0.839216, 0.780392, 1, 0.858824, 0.839216, 0.780392, 1, 0.976471, 0.560784, 0.282353, 1)
 
-[sub_resource type="Sky" id="Sky_mnjs8"]
-sky_material = SubResource("ProceduralSkyMaterial_8t3jm")
+[sub_resource type="Curve" id="Curve_24xx8"]
+_data = [Vector2(0.202765, 0), 0.0, 0.0, 0, 0, Vector2(0.301843, 1), 0.0, 0.0, 0, 0, Vector2(0.695853, 1), 0.0, 0.0, 0, 0, Vector2(0.801843, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
-[sub_resource type="Environment" id="Environment_2m328"]
+[sub_resource type="Gradient" id="Gradient_uetrc"]
+offsets = PackedFloat32Array(0.00242718)
+colors = PackedColorArray(0, 0.224512, 0.599206, 1)
+
+[sub_resource type="Curve" id="Curve_7wt6v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.304147, 0), 0.0, 0.0, 0, 0, Vector2(0.700461, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_4o8pm"]
+offsets = PackedFloat32Array(0.1, 0.4, 0.6, 0.9)
+colors = PackedColorArray(0, 0.121569, 0.27451, 1, 0.117647, 0.690196, 0.694118, 1, 0.117647, 0.690196, 0.694118, 1, 0, 0.121569, 0.27451, 1)
+
+[sub_resource type="Gradient" id="Gradient_j3ino"]
+offsets = PackedFloat32Array(0.1, 0.274272, 0.4, 0.6, 0.694175, 0.9)
+colors = PackedColorArray(0, 0.121569, 0.27451, 1, 0.737255, 0.454902, 0.254902, 1, 0.117647, 0.690196, 0.694118, 1, 0.117647, 0.690196, 0.694118, 1, 0.737255, 0.454902, 0.254902, 1, 0, 0.121569, 0.27451, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l1sab"]
+sky_top_color = Color(0.262745, 0.462745, 0.666667, 1)
+sky_horizon_color = Color(0.415686, 0.701961, 0.803922, 1)
+ground_bottom_color = Color(0.262745, 0.462745, 0.666667, 1)
+ground_horizon_color = Color(0.415686, 0.701961, 0.803922, 1)
+
+[sub_resource type="Sky" id="Sky_tb1s2"]
+sky_material = SubResource("ProceduralSkyMaterial_l1sab")
+
+[sub_resource type="Environment" id="Environment_hkoaj"]
 background_mode = 2
-sky = SubResource("Sky_mnjs8")
-ambient_light_source = 1
-reflected_light_source = 2
-tonemap_mode = 2
-glow_enabled = true
-
-[sub_resource type="Animation" id="Animation_gml5q"]
-resource_name = "DayNightCycle"
-length = 1200.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DirectionalLight3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DirectionalLight3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1200),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_a55ey"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DirectionalLight3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DirectionalLight3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_m72pf"]
-_data = {
-"DayNightCycle": SubResource("Animation_gml5q"),
-"RESET": SubResource("Animation_a55ey")
-}
+sky = SubResource("Sky_tb1s2")
 
 [sub_resource type="Resource" id="Resource_ybs8f"]
 script = ExtResource("4_itjam")
@@ -115,19 +78,27 @@ quantity = 5
 [node name="world" type="Node3D"]
 script = ExtResource("1_8wg6f")
 
-[node name="env" type="Node3D" parent="."]
+[node name="DayNightCycle" type="Node3D" parent="."]
+script = ExtResource("2_litch")
+sun_color = SubResource("Gradient_rctfw")
+sun_intensity = SubResource("Curve_24xx8")
+moon_color = SubResource("Gradient_uetrc")
+moon_intensity = SubResource("Curve_7wt6v")
+sky_top_color = SubResource("Gradient_4o8pm")
+sky_horizon_color = SubResource("Gradient_j3ino")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="env"]
+[node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(0.0438929, -0.321142, -0.946013, -0.996976, -0.0748614, -0.0208444, -0.0641258, 0.944068, -0.323457, 0, 25.7688, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="env"]
-environment = SubResource("Environment_2m328")
+[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(0.779292, 0.473308, -0.41071, -0.387908, -0.150396, -0.909345, -0.49217, 0.867963, 0.066397, 0, 25.7688, 0)
+visible = false
+shadow_enabled = true
+sky_mode = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="env"]
-libraries = {
-"": SubResource("AnimationLibrary_m72pf")
-}
-autoplay = "DayNightCycle"
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
+environment = SubResource("Environment_hkoaj")
 
 [node name="player" parent="." instance=ExtResource("2_i7i3i")]
 equip_inventory_data = SubResource("Resource_ybs8f")
