@@ -12,7 +12,7 @@ func _ready():
 func _on_start_pressed():
 	if regex.search(text):
 		Globals.game_seed = int(text)
-		get_tree().change_scene_to_file("res://scenes/world.tscn")
+		get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
 func _on_line_edit_text_changed(input):

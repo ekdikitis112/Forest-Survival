@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b1pcvxqb5h0l3" path="res://item/pick_up/pick_up.tscn" id="12_3fhw7"]
 [ext_resource type="Resource" uid="uid://cwho1cseci8ff" path="res://item/items/apple.tres" id="13_ag3ob"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_hhgdr"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dfsmw"]
 noise_type = 3
 frequency = 0.008
 
@@ -75,12 +75,11 @@ script = ExtResource("11_67egc")
 item_data = ExtResource("13_ag3ob")
 quantity = 5
 
-[node name="world" type="Node3D" node_paths=PackedStringArray("player_viewer")]
+[node name="world" type="Node3D" node_paths=PackedStringArray("viewer")]
 script = ExtResource("1_8wg6f")
-terrain_height = 40
-player_viewer = NodePath("player")
+viewer = NodePath("player")
 chunk_mesh_scene = ExtResource("2_3jyan")
-noise = SubResource("FastNoiseLite_hhgdr")
+noise = SubResource("FastNoiseLite_dfsmw")
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("2_litch")
