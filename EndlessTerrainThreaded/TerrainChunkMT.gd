@@ -22,6 +22,7 @@ var set_collision = false
 var request_generation = false
 var generating = false
 var completed = false
+var mesh_instance = ArrayMesh
 
 func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_visible:bool,thread=null):
 	Terrain_Size = size
@@ -44,6 +45,7 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 			#set the height of the vertex by noise
 			#pass position to make noise continueous
 			vertex.y = noise.get_noise_2d(position.x+vertex.x,position.z+vertex.z) * Terrain_Max_Height
+			
 			#create UVs using percentage
 			var uv = Vector2()
 			uv.x = percent.x
@@ -70,6 +72,7 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	a_mesh = surftool.commit()
 	#assign Array Mesh to mesh
 	mesh = a_mesh
+	mesh_instance = a_mesh
 	#set to invisible on start
 	setChunkVisible(initailly_visible)
 	
@@ -83,7 +86,16 @@ func thread_complete(thread):
 		generate_collision()
 	
 
-		
+func get_height(x:int,z:int)-> float:
+	var mdt: MeshDataTool = MeshDataTool.new()
+	var err = mdt.create_from_surface(mesh_instance,0)
+	for i in range(mdt.get_vertex_count()):
+		var vertex = mdt.get_vertex(i)
+		print("vert X: ",vertex.x)
+		if vertex.x == x and vertex.z == z:
+			return vertex.y
+	return 0
+
 #create collision
 func generate_collision():
 	if get_child_count() > 0:

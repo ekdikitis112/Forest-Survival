@@ -28,20 +28,29 @@ var active_threads = 0
 var last_visible_chunks = []
 @export var noise:FastNoiseLite
 
+var Chunks:Node3D = Node3D.new()
+var Trees:Node3D = Node3D.new()
+
 func _unhandled_input(event):
 	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		var pause_menu = load("res://scenes/pause_menu.tscn").instantiate()
 		add_child(pause_menu)
+		get_tree().paused = true
 
 
 func _ready():
+	Chunks.name = "Chunks"
+	add_child(Chunks)
+	Trees.name = "Trees"
+	add_child(Trees)
+	
+	
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)
 	inventory_interface.set_equip_inventory_data(player.equip_inventory_data)
 	hot_bar_inventory.set_inventory_data(player.inventory_data)
 	inventory_interface.force_close.connect(toggle_inventory_interface)
-	
 	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
@@ -94,7 +103,7 @@ func updateVisibleChunk():
 				
 				#if chunk doesnt exist, create chunk
 				var chunk := chunk_mesh_scene.instantiate()
-				add_child(chunk)
+				Chunks.add_child(chunk)
 				#set chunk parameters
 				chunk.Terrain_Max_Height = terrain_height
 				#set chunk world position
@@ -102,6 +111,7 @@ func updateVisibleChunk():
 				var world_position = Vector3(pos.x,0,pos.y)
 				chunk.global_position = world_position
 				terrain_chunks[view_chunk_coord] = chunk
+				
 				#use array of threads to generate chunk mesh
 				#loop through all threads
 				for thread in threads:
@@ -111,6 +121,19 @@ func updateVisibleChunk():
 					if thread.is_started() == false:
 						thread.start(chunk.generate_terrain.bind(thread,noise,view_chunk_coord,chunkSize,true,thread))
 						break;
+				
+				# add trees
+				var max = randi_range(10,30)
+				for i in range(0,max):
+					var x = randi_range(-pos.x,pos.x)
+					var z = randi_range(-pos.y,pos.y)
+					if x != floor(player.position.x) and z != floor(player.position.z)  : 
+						var tree = load("res://scenes/tree.tscn").instantiate()
+						var y = chunk.get_height(x,z)
+						print("x:",x,"| y:",y," | z:",z)
+						tree.position = Vector3(x,y,z)
+						Trees.add_child(tree)
+
 
 #clear all the threads before exiting
 func _exit_tree():
