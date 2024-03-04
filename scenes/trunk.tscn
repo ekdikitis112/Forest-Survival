@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://4a6o21gvrlnk"]
+
+[ext_resource type="PackedScene" uid="uid://dur73lejyhcay" path="res://scenes/treetrunk.tscn" id="1_8gcin"]
+[ext_resource type="Script" path="res://scenes/trunk.gd" id="1_arhsj"]
+[ext_resource type="PackedScene" uid="uid://crrapcj1uf8l3" path="res://scenes/logs_pile.tscn" id="2_bxnsu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v1c5h"]
+height = 5.46768
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_htexj"]
+size = Vector3(1, 5.67512, 1)
+
+[node name="Trunk" type="RigidBody3D"]
+script = ExtResource("1_arhsj")
+next_scene = ExtResource("2_bxnsu")
+health = 3
+impulse_force = 8.0
+
+[node name="trunk" parent="." instance=ExtResource("1_8gcin")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999944, 0.0105764, 0, -0.0105764, 0.999944, -0.000316769, 2.48344, -0.0733485)
+shape = SubResource("CapsuleShape3D_v1c5h")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999752, 0.022286, 0, -0.022286, 0.999752, 0, 2.47913, -0.0445528)
+shape = SubResource("BoxShape3D_htexj")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

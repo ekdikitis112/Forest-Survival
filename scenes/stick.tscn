@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckiprosx3q166"]
+
+[ext_resource type="PackedScene" uid="uid://pirscrgmik5m" path="res://assets/models/stick.glb" id="1_dn2ex"]
+
+[node name="stick" instance=ExtResource("1_dn2ex")]
+transform = Transform3D(0.0333619, 0.978949, -0.201359, -0.877427, 0.125156, 0.463097, 0.478549, 0.161228, 0.863132, -0.731616, -0.0321411, 0)
+
+[node name="stick" parent="." index="0"]
+transform = Transform3D(1.27222, -0.0124459, -0.0908324, -0.112186, 0.0431569, -1.01958, 0.0238153, 0.868132, 0.0493838, -0.0369757, 0.836354, -0.00391123)

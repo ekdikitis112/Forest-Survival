@@ -87,14 +87,18 @@ func generate_trees(noise: FastNoiseLite):
 	Trees = Node3D.new()
 	Trees.name = "Trees"
 	add_child(Trees)
-	mult_mesh = MultiMeshInstance3D.new()
-	mult_mesh.multimesh = MultiMesh.new()
-	mult_mesh.multimesh.mesh = preload("res://assets/lowpoly_tree/tree.tres")
-	mult_mesh.multimesh.transform_format = MultiMesh.TRANSFORM_3D
-	mult_mesh.multimesh.instance_count = 200
-	mult_mesh.multimesh.visible_instance_count = 200
-	populate(mult_mesh,noise)
-	Trees.add_child(mult_mesh)
+	#mult_mesh = MultiMeshInstance3D.new()
+	#mult_mesh.multimesh = MultiMesh.new()
+	#mult_mesh.multimesh.mesh = preload("res://assets/lowpoly_tree/tree.tres")
+	#mult_mesh.multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	#mult_mesh.multimesh.instance_count = 200
+	#mult_mesh.multimesh.visible_instance_count = 200
+	#populate(mult_mesh,noise)
+	var tree = load("res://scenes/full_tree.tscn").instantiate()
+	tree.position = Vector3(Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2),0,Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2))
+	tree.position.y = set_noise_position(tree.position,noise)
+	print(tree.position)
+	Trees.add_child(tree)
 	
 
 func populate(mult_mesh: MultiMeshInstance3D, noise: FastNoiseLite):

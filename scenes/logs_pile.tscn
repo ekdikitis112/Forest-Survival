@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://crrapcj1uf8l3"]
+
+[ext_resource type="PackedScene" uid="uid://ckiprosx3q166" path="res://scenes/stick.tscn" id="1_6jx1o"]
+[ext_resource type="Script" path="res://scenes/logs_pile.gd" id="1_fuhk6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e7x67"]
+size = Vector3(1.76946, 0.396635, 0.530383)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4v7c7"]
+size = Vector3(1.90513, 0.517937, 0.71278)
+
+[node name="LogsPile" type="RigidBody3D"]
+gravity_scale = 3.0
+script = ExtResource("1_fuhk6")
+
+[node name="stick" parent="." instance=ExtResource("1_6jx1o")]
+transform = Transform3D(-0.136368, 0.984717, -0.108332, -0.867407, -0.0658608, 0.493222, 0.478549, 0.161228, 0.863132, -0.731616, 0.218421, 0)
+visible = false
+
+[node name="stick2" parent="." instance=ExtResource("1_6jx1o")]
+transform = Transform3D(0.179446, 0.980913, 0.0748948, -0.877427, 0.125156, 0.463097, 0.444884, -0.148815, 0.883138, -0.619085, 0.130886, 0.318028)
+visible = false
+
+[node name="stick4" parent="." instance=ExtResource("1_6jx1o")]
+transform = Transform3D(0.0330019, 0.985666, -0.165447, -0.877417, 0.10784, 0.46745, 0.478591, 0.129739, 0.8684, -0.779817, 0.00273834, 0.223585)
+visible = false
+
+[node name="stick3" parent="." instance=ExtResource("1_6jx1o")]
+transform = Transform3D(0.128826, 0.99138, -0.0238441, -0.877427, 0.125156, 0.463097, 0.462089, -0.0387371, 0.885987, -0.706536, -0.0321411, 0.0816356)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0.000715585, 0, 1, 0, -0.000715585, 0, 1, 0.140666, 0.213099, 0.197376)
+shape = SubResource("BoxShape3D_e7x67")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138645, 0.191039, 0.198711)
+shape = SubResource("BoxShape3D_4v7c7")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

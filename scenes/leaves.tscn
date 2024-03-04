@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bu16lc33fdrad"]
+
+[ext_resource type="PackedScene" uid="uid://dhj0dnhkcw4t3" path="res://assets/models/leaves.glb" id="1_4tc67"]
+
+[node name="leaves" instance=ExtResource("1_4tc67")]
+
+[node name="Leaves" parent="." index="0"]
+transform = Transform3D(-0.216704, 1.49012e-07, 0.976237, 0.976237, 1.19209e-07, 0.216704, 5.96046e-08, 1, -1.19209e-07, -0.493452, 0.42246, -0.0249097)
