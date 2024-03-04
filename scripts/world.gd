@@ -13,8 +13,8 @@ const PickUp = preload("res://item/pick_up/pick_up.tscn")
 ###
 
 @export var chunkSize = 400
-@export var terrain_height = 20
-@export var view_distance = 2000
+@export var terrain_height = 40
+@export var view_distance = 1000
 @export var viewer :CharacterBody3D
 @export var chunk_mesh_scene : PackedScene
 var viewer_position = Vector2()
@@ -42,9 +42,6 @@ func _unhandled_input(event):
 func _ready():
 	Chunks.name = "Chunks"
 	add_child(Chunks)
-	Trees.name = "Trees"
-	add_child(Trees)
-	
 	
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.inventory_data)
@@ -55,7 +52,7 @@ func _ready():
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_inventory_interface)
 	
-	noise.seed = Globals.game_seed
+	noise.seed = Globals.game_seed.seed
 	#create threads and add to array
 	for i in thread_count:
 		threads.append(Thread.new())
@@ -70,6 +67,9 @@ func _process(delta):
 	viewer_position.x = viewer.global_position.x
 	viewer_position.y = viewer.global_position.z
 	updateVisibleChunk()
+	for chunk in last_visible_chunks:
+		if not chunk.getChunkVisible():
+			get_node(chunk).free()
 
 func set_wireframe(draw_wireframe:bool):
 	if draw_wireframe:
@@ -81,6 +81,7 @@ func updateVisibleChunk():
 	#hide chunks that were are out of view
 	for chunk in last_visible_chunks:
 		chunk.setChunkVisible(false)
+	
 	last_visible_chunks.clear()
 	#get grid position
 	var currentX = roundi(viewer_position.x/chunkSize)
@@ -120,19 +121,7 @@ func updateVisibleChunk():
 					#then break out of loop to prevent using other inactive threads
 					if thread.is_started() == false:
 						thread.start(chunk.generate_terrain.bind(thread,noise,view_chunk_coord,chunkSize,true,thread))
-						break;
-				
-				# add trees
-				var max = randi_range(10,30)
-				for i in range(0,max):
-					var x = randi_range(-pos.x,pos.x)
-					var z = randi_range(-pos.y,pos.y)
-					if x != floor(player.position.x) and z != floor(player.position.z)  : 
-						var tree = load("res://scenes/tree.tscn").instantiate()
-						var y = chunk.get_height(x,z)
-						print("x:",x,"| y:",y," | z:",z)
-						tree.position = Vector3(x,y,z)
-						Trees.add_child(tree)
+						break
 
 
 #clear all the threads before exiting
@@ -166,5 +155,5 @@ func toggle_inventory_interface(external_inventory_owner = null):
 func _on_inventory_interface_drop_slot_data(slot_data):
 	var pick_up = PickUp.instantiate()
 	pick_up.slot_data = slot_data
-	pick_up.position = player.get_drop_position()
+	pick_up.position = player.get_drop_position()+Vector3(1,0,1)
 	add_child(pick_up)

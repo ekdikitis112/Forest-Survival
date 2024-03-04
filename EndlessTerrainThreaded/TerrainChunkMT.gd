@@ -22,7 +22,9 @@ var set_collision = false
 var request_generation = false
 var generating = false
 var completed = false
-var mesh_instance = ArrayMesh
+
+var mult_mesh : MultiMeshInstance3D
+var Trees : Node3D = Node3D.new()
 
 func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_visible:bool,thread=null):
 	Terrain_Size = size
@@ -33,6 +35,7 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	var surftool = SurfaceTool.new()
 	surftool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	#use resolution to loop
+	var tree_count = 0
 	for z in resolution+1:
 		for x in resolution+1:
 			#get the percentage of the current point
@@ -44,7 +47,7 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 			var vertex = pointOnMesh * Terrain_Size;
 			#set the height of the vertex by noise
 			#pass position to make noise continueous
-			vertex.y = noise.get_noise_2d(position.x+vertex.x,position.z+vertex.z) * Terrain_Max_Height
+			vertex.y = set_noise_position(vertex,noise)
 			
 			#create UVs using percentage
 			var uv = Vector2()
@@ -53,7 +56,7 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 			#set UV and add Vertex
 			surftool.set_uv(uv)
 			surftool.add_vertex(vertex)
-	#created indices for triangle
+
 	#clockwise
 	var vert = 0
 	for z in resolution:
@@ -72,29 +75,64 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	a_mesh = surftool.commit()
 	#assign Array Mesh to mesh
 	mesh = a_mesh
-	mesh_instance = a_mesh
 	#set to invisible on start
 	setChunkVisible(initailly_visible)
 	
-	call_deferred("thread_complete",thread)
+	# add trees
+	generate_trees(noise)
 	
+	call_deferred("thread_complete",thread)
+
+func generate_trees(noise: FastNoiseLite):
+	Trees = Node3D.new()
+	Trees.name = "Trees"
+	add_child(Trees)
+	mult_mesh = MultiMeshInstance3D.new()
+	mult_mesh.multimesh = MultiMesh.new()
+	mult_mesh.multimesh.mesh = preload("res://assets/lowpoly_tree/tree.tres")
+	mult_mesh.multimesh.transform_format = MultiMesh.TRANSFORM_3D
+	mult_mesh.multimesh.instance_count = 200
+	mult_mesh.multimesh.visible_instance_count = 200
+	populate(mult_mesh,noise)
+	Trees.add_child(mult_mesh)
+	
+
+func populate(mult_mesh: MultiMeshInstance3D, noise: FastNoiseLite):
+	var vert = Vector3(0,0,0)
+	var close = false
+	
+	for i in mult_mesh.multimesh.instance_count:
+		while(true):
+			close = false
+			vert = Vector3(Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2),0,Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2))
+			var new_tree_pos = Vector2(vert.x,vert.z)
+			for j in range(i,mult_mesh.multimesh.instance_count):
+				var tr_j = mult_mesh.multimesh.get_aabb().position
+				var old_tree_position = Vector2(tr_j.x,tr_j.z)
+				if old_tree_position.distance_to(new_tree_pos) <= 2:
+					close = true
+		
+			if not close:
+				vert.y = set_noise_position(vert,noise) - 0.7
+				mult_mesh.multimesh.set_instance_transform(i, Transform3D(Basis.IDENTITY,vert))
+				var collisionShape = CollisionShape3D.new()
+				collisionShape.shape = mult_mesh.multimesh.mesh.create_trimesh_shape()
+				var collisionNode = StaticBody3D.new()
+				collisionNode.transform =  Transform3D(Basis.IDENTITY,vert)
+				collisionNode.add_child(collisionShape)
+				mult_mesh.add_child(collisionNode)
+				break
+
+func set_noise_position(vertex: Vector3, noise: FastNoiseLite):
+	return noise.get_noise_2d(position.x+vertex.x,position.z+vertex.z) * Terrain_Max_Height
+
 func thread_complete(thread):
 	if thread != null:
 		thread.wait_to_finish()
 		
 	if set_collision:
 		generate_collision()
-	
 
-func get_height(x:int,z:int)-> float:
-	var mdt: MeshDataTool = MeshDataTool.new()
-	var err = mdt.create_from_surface(mesh_instance,0)
-	for i in range(mdt.get_vertex_count()):
-		var vertex = mdt.get_vertex(i)
-		print("vert X: ",vertex.x)
-		if vertex.x == x and vertex.z == z:
-			return vertex.y
-	return 0
 
 #create collision
 func generate_collision():
@@ -107,6 +145,7 @@ func update_chunk(view_pos:Vector2,max_view_dis):
 	var viewer_distance = position_coord.distance_to(view_pos)
 	var _is_visible = viewer_distance <= max_view_dis
 	setChunkVisible(_is_visible)
+
 
 #SLOW
 func should_remove(view_pos:Vector2,max_view_dis):
@@ -143,7 +182,9 @@ func update_lod(view_pos:Vector2):
 
 #remove chunk
 func free_chunk():
-	queue_free()
+	free()
+	#queue_free()
+
 #set chunk visibility
 func setChunkVisible(_is_visible):
 	visible = _is_visible

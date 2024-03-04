@@ -103,6 +103,7 @@ _data = {
 collision_layer = 2
 script = ExtResource("1_bc5js")
 inventory_data = ExtResource("2_pvxw5")
+sprinting_speed = 100.0
 
 [node name="standing_collision_shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

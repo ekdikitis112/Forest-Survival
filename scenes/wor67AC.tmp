@@ -1,0 +1,169 @@
+[gd_scene load_steps=30 format=3 uid="uid://k2ji3d868hkr"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_8wg6f"]
+[ext_resource type="PackedScene" uid="uid://3mpxetw67hxg" path="res://scenes/chunk.tscn" id="2_3jyan"]
+[ext_resource type="PackedScene" uid="uid://onu8qwrhmrst" path="res://player/player.tscn" id="2_i7i3i"]
+[ext_resource type="Script" path="res://scenes/DayNightCycle.gd" id="2_litch"]
+[ext_resource type="Script" path="res://inventory/Inventory_Interface.gd" id="4_35f67"]
+[ext_resource type="PackedScene" uid="uid://dpa0a8u80jdbt" path="res://inventory/inventory.tscn" id="4_amtlx"]
+[ext_resource type="Script" path="res://inventory/inventory_data_equip.gd" id="4_itjam"]
+[ext_resource type="PackedScene" uid="uid://bvi3btkaanoh" path="res://inventory/slot.tscn" id="6_on2mx"]
+[ext_resource type="PackedScene" uid="uid://dam617fwrjtit" path="res://inventory/hot_bar_inventory.tscn" id="7_usicj"]
+[ext_resource type="PackedScene" uid="uid://e7khjssmknx" path="res://scenes/chest.tscn" id="9_0tpir"]
+[ext_resource type="Script" path="res://inventory/inventory_data.gd" id="9_vondr"]
+[ext_resource type="Resource" uid="uid://cm3e5nc22ug86" path="res://item/items/blue_book.tres" id="10_2pu6v"]
+[ext_resource type="Script" path="res://inventory/slot_data.gd" id="11_67egc"]
+[ext_resource type="PackedScene" uid="uid://b1pcvxqb5h0l3" path="res://item/pick_up/pick_up.tscn" id="12_3fhw7"]
+[ext_resource type="Resource" uid="uid://cwho1cseci8ff" path="res://item/items/apple.tres" id="13_ag3ob"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dfsmw"]
+noise_type = 3
+frequency = 0.008
+
+[sub_resource type="Gradient" id="Gradient_rctfw"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0.976471, 0.560784, 0.282353, 1, 0.858824, 0.839216, 0.780392, 1, 0.858824, 0.839216, 0.780392, 1, 0.976471, 0.560784, 0.282353, 1)
+
+[sub_resource type="Curve" id="Curve_24xx8"]
+_data = [Vector2(0.202765, 0), 0.0, 0.0, 0, 0, Vector2(0.301843, 1), 0.0, 0.0, 0, 0, Vector2(0.695853, 1), 0.0, 0.0, 0, 0, Vector2(0.801843, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_uetrc"]
+offsets = PackedFloat32Array(0.00242718)
+colors = PackedColorArray(0, 0.224512, 0.599206, 1)
+
+[sub_resource type="Curve" id="Curve_7wt6v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.304147, 0), 0.0, 0.0, 0, 0, Vector2(0.700461, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_4o8pm"]
+offsets = PackedFloat32Array(0.1, 0.4, 0.6, 0.9)
+colors = PackedColorArray(0, 0.121569, 0.27451, 1, 0.117647, 0.690196, 0.694118, 1, 0.117647, 0.690196, 0.694118, 1, 0, 0.121569, 0.27451, 1)
+
+[sub_resource type="Gradient" id="Gradient_j3ino"]
+offsets = PackedFloat32Array(0.1, 0.274272, 0.4, 0.6, 0.694175, 0.9)
+colors = PackedColorArray(0, 0.121569, 0.27451, 1, 0.737255, 0.454902, 0.254902, 1, 0.117647, 0.690196, 0.694118, 1, 0.117647, 0.690196, 0.694118, 1, 0.737255, 0.454902, 0.254902, 1, 0, 0.121569, 0.27451, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l1sab"]
+sky_top_color = Color(0.262745, 0.462745, 0.666667, 1)
+sky_horizon_color = Color(0.415686, 0.701961, 0.803922, 1)
+ground_bottom_color = Color(0.262745, 0.462745, 0.666667, 1)
+ground_horizon_color = Color(0.415686, 0.701961, 0.803922, 1)
+
+[sub_resource type="Sky" id="Sky_tb1s2"]
+sky_material = SubResource("ProceduralSkyMaterial_l1sab")
+
+[sub_resource type="Environment" id="Environment_hkoaj"]
+background_mode = 2
+sky = SubResource("Sky_tb1s2")
+
+[sub_resource type="Resource" id="Resource_ybs8f"]
+script = ExtResource("4_itjam")
+slot_datas = Array[ExtResource("11_67egc")]([null])
+
+[sub_resource type="Resource" id="Resource_mw1fh"]
+script = ExtResource("11_67egc")
+item_data = ExtResource("10_2pu6v")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_bs5tq"]
+script = ExtResource("9_vondr")
+slot_datas = Array[ExtResource("11_67egc")]([SubResource("Resource_mw1fh"), null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_trfve"]
+script = ExtResource("11_67egc")
+item_data = ExtResource("13_ag3ob")
+quantity = 5
+
+[node name="world" type="Node3D" node_paths=PackedStringArray("viewer")]
+script = ExtResource("1_8wg6f")
+viewer = NodePath("player")
+chunk_mesh_scene = ExtResource("2_3jyan")
+noise = SubResource("FastNoiseLite_dfsmw")
+
+[node name="DayNightCycle" type="Node3D" parent="."]
+script = ExtResource("2_litch")
+sun_color = SubResource("Gradient_rctfw")
+sun_intensity = SubResource("Curve_24xx8")
+moon_color = SubResource("Gradient_uetrc")
+moon_intensity = SubResource("Curve_7wt6v")
+sky_top_color = SubResource("Gradient_4o8pm")
+sky_horizon_color = SubResource("Gradient_j3ino")
+
+[node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(0.0438929, -0.321142, -0.946013, -0.996976, -0.0748614, -0.0208444, -0.0641258, 0.944068, -0.323457, 0, 25.7688, 0)
+shadow_enabled = true
+
+[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(0.779292, 0.473308, -0.41071, -0.387908, -0.150396, -0.909345, -0.49217, 0.867963, 0.066397, 0, 25.7688, 0)
+visible = false
+shadow_enabled = true
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
+environment = SubResource("Environment_hkoaj")
+
+[node name="player" parent="." instance=ExtResource("2_i7i3i")]
+equip_inventory_data = SubResource("Resource_ybs8f")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InventoryInterface" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_35f67")
+
+[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("4_amtlx")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="UI/InventoryInterface" instance=ExtResource("4_amtlx")]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 490.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("4_amtlx")]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_right = 0.0
+grow_horizontal = 0
+
+[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("6_on2mx")]
+visible = false
+modulate = Color(1, 1, 1, 0.47451)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="UI" instance=ExtResource("7_usicj")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 90.0
+
+[node name="Chest" parent="." instance=ExtResource("9_0tpir")]
+transform = Transform3D(-0.0846866, 0, -0.996408, 0, 1, 0, 0.996408, 0, -0.0846866, 0, 0, -4)
+inventory_data = SubResource("Resource_bs5tq")
+
+[node name="PickUp" parent="." instance=ExtResource("12_3fhw7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.120747, 0.369848, -2.90258)
+slot_data = SubResource("Resource_trfve")
+
+[connection signal="drop_slot_data" from="UI/InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
+[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
