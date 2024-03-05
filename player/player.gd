@@ -84,14 +84,13 @@ const mouse_sensitivity = 0.25
 
 var direction = Vector3.ZERO
 
-@onready var axe = $Axe
+@onready var axe = %Axe
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	axe.position = Vector3(1,-1,-1)
 	PlayerManager.player = self
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -100,7 +99,6 @@ func _unhandled_input(event):
 	#handle attacking or chopping etc
 	if event is InputEventMouseButton and event.is_action_pressed("left_click"):
 		axe.chop()
-		axe.position = Vector3(1,-1,-1)
 	
 	# interact with objects in the world
 	if  Input.is_action_just_pressed("interact"):

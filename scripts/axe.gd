@@ -15,3 +15,6 @@ func _on_body_entered(body):
 	body.take_damage(axe_damage)
 	$Hit.pitch_scale = randf_range(0.8,1.2)
 	$Hit.play()
+
+func _physics_process(delta):
+	position = get_parent().position + Vector3(1,-1,-1)

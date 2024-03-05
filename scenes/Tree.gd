@@ -7,12 +7,15 @@ extends Node
 @export var origin_offset: Vector3
 
 func take_damage(damage):
-	if health <=0: return
+	if health <= 0: return
+	print("health: ",health)
 	health -= damage
+	print("Taken 1 damage! health: ",health)
 	if health <= 0:
 		die()
 
 func die():
+	print("died")
 	var instance = next_scene.instantiate()
 	get_parent().add_child(instance)
 	instance.global_transform.origin = $SpawnPoint.global_transform.origin + origin_offset

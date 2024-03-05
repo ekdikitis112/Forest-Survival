@@ -11,7 +11,7 @@ size = Vector3(3.37022, 7.57293, 3.12547)
 [sub_resource type="BoxShape3D" id="BoxShape3D_30ttn"]
 size = Vector3(0.65234, 0.883484, 0.790951)
 
-[node name="fullTree" type="StaticBody3D"]
+[node name="fullTree" type="StaticBody3D" groups=["Tree"]]
 script = ExtResource("1_xw76y")
 next_scene = ExtResource("2_f5ysc")
 impulse_direction = Vector3(0, 1, -1)

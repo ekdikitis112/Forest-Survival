@@ -10,7 +10,7 @@ height = 5.46768
 [sub_resource type="BoxShape3D" id="BoxShape3D_htexj"]
 size = Vector3(1, 5.67512, 1)
 
-[node name="Trunk" type="RigidBody3D"]
+[node name="Trunk" type="RigidBody3D" groups=["Tree"]]
 script = ExtResource("1_arhsj")
 next_scene = ExtResource("2_bxnsu")
 health = 3
