@@ -4,7 +4,7 @@ extends MeshInstance3D
 @export_range(20,400, 1)var Terrain_Size := 200
 #LOD scaling
 @export_range(1, 100, 1) var resolution := 20
-@export var Terrain_Max_Height = 5
+@export var Terrain_Max_Height = 40
 #set the minimum to maximum lods 
 #to change the terrain resolution
 @export var chunk_lods : Array[int] = [2,4,8,15,20,50]
@@ -23,8 +23,9 @@ var request_generation = false
 var generating = false
 var completed = false
 
-var mult_mesh : MultiMeshInstance3D
-var Trees : Node3D
+var min_height = 0
+var max_height = 0
+
 
 func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_visible:bool,thread=null):
 	Terrain_Size = size
@@ -35,7 +36,6 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	var surftool = SurfaceTool.new()
 	surftool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	#use resolution to loop
-	var tree_count = 0
 	for z in resolution+1:
 		for x in resolution+1:
 			#get the percentage of the current point
@@ -48,7 +48,10 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 			#set the height of the vertex by noise
 			#pass position to make noise continueous
 			vertex.y = set_noise_position(vertex,noise)
-			
+			if vertex.y <= min_height:
+				min_height = vertex.y
+			if vertex.y >= max_height:
+				max_height = vertex.y
 			#create UVs using percentage
 			var uv = Vector2()
 			uv.x = percent.x
@@ -56,7 +59,7 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 			#set UV and add Vertex
 			surftool.set_uv(uv)
 			surftool.add_vertex(vertex)
-
+	
 	#clockwise
 	var vert = 0
 	for z in resolution:
@@ -75,6 +78,11 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	a_mesh = surftool.commit()
 	#assign Array Mesh to mesh
 	mesh = a_mesh
+	
+	# add min and max values to shader
+	var mat: Material = material_override
+	mat.set_shader_parameter("min_grasss_height",min_height)
+	mat.set_shader_parameter("max_rock_height",max_height)
 	#set to invisible on start
 	setChunkVisible(initailly_visible)
 	
@@ -86,16 +94,17 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	water.mesh = PlaneMesh.new()
 	water.mesh.material = load("res://assets/materials/water.tres")
 	water.position = Vector3(position_coord.x,0,position_coord.y)
-	water.mesh.size = Vector2(Terrain_Size,Terrain_Size)
+	water.mesh.size = Vector2(Terrain_Size*2,Terrain_Size*2)
 	add_child(water)
 	
 	call_deferred("thread_complete",thread)
 
 func generate_trees(noise: FastNoiseLite):
-	var tree = load("res://scenes/full_tree.tscn").instantiate()
-	tree.position = Vector3(Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2),0,Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2))
-	tree.position.y = set_noise_position(tree.position,noise)
-	add_child(tree)
+	for i in range(40,80):
+		var tree = load("res://scenes/full_tree.tscn").instantiate()
+		tree.position = Vector3(Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2),0,Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2))
+		tree.position.y = set_noise_position(tree.position,noise)
+		add_child(tree)
 	
 
 func populate(mult_mesh: MultiMeshInstance3D, noise: FastNoiseLite):

@@ -17,8 +17,9 @@
 [ext_resource type="Resource" uid="uid://cwho1cseci8ff" path="res://item/items/apple.tres" id="13_ag3ob"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dfsmw"]
-noise_type = 3
-frequency = 0.008
+frequency = 0.0058
+fractal_lacunarity = 1.0
+fractal_gain = 2.0
 
 [sub_resource type="Gradient" id="Gradient_rctfw"]
 offsets = PackedFloat32Array(0, 0.3, 0.7, 1)

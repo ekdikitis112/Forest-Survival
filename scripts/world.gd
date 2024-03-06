@@ -95,6 +95,7 @@ func updateVisibleChunk():
 			if terrain_chunks.has(view_chunk_coord):
 				#if chunk exist update the chunk passing viewer_position and view_distance
 				terrain_chunks[view_chunk_coord].update_chunk(viewer_position,view_distance)
+				
 				if terrain_chunks[view_chunk_coord].update_lod(viewer_position):
 					terrain_chunks[view_chunk_coord].generate_terrain(noise,view_chunk_coord,chunkSize,false)
 				#if chunk is visible add it to last visible chunks
