@@ -81,6 +81,14 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	# add trees
 	generate_trees(noise)
 	
+	# add water
+	var water = MeshInstance3D.new()
+	water.mesh = PlaneMesh.new()
+	water.mesh.material = load("res://assets/materials/water.tres")
+	water.position = Vector3(position_coord.x,0,position_coord.y)
+	water.mesh.size = Vector2(Terrain_Size,Terrain_Size)
+	add_child(water)
+	
 	call_deferred("thread_complete",thread)
 
 func generate_trees(noise: FastNoiseLite):
