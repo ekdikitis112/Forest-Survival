@@ -1,4 +1,5 @@
 extends Node
+class_name Trees
 
 @export var next_scene: PackedScene = preload("res://scenes/treetrunk.tscn")
 @export var health: int = 4
@@ -8,14 +9,14 @@ extends Node
 
 func take_damage(damage):
 	if health <= 0: return
-	print("health: ",health)
+	#print("health: ",health)
 	health -= damage
-	print("Taken 1 damage! health: ",health)
+	#print("Taken 1 damage! health: ",health)
 	if health <= 0:
 		die()
 
 func die():
-	print("died")
+	#print("died")
 	var instance = next_scene.instantiate()
 	get_parent().add_child(instance)
 	instance.global_transform.origin = $SpawnPoint.global_transform.origin + origin_offset

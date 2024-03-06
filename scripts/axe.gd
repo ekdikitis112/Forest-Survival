@@ -13,8 +13,7 @@ func set_can_chop(val):
 func _on_body_entered(body):
 	if !body.is_in_group("Tree") || !can_chop: return
 	body.take_damage(axe_damage)
-	$Hit.pitch_scale = randf_range(0.8,1.2)
 	$Hit.play()
 
 func _physics_process(delta):
-	position = get_parent().position + Vector3(1,-1,-1)
+	position = get_parent().position + Vector3(1,-1,-0.8)

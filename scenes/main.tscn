@@ -5,4 +5,5 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_pt6o5")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="Music" type="AudioStreamPlayer3D" parent="."]
+volume_db = -20.0

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dur73lejyhcay" path="res://scenes/treetrunk.tscn" id="1_8gcin"]
 [ext_resource type="Script" path="res://scenes/trunk.gd" id="1_arhsj"]
-[ext_resource type="PackedScene" uid="uid://crrapcj1uf8l3" path="res://scenes/logs_pile.tscn" id="2_bxnsu"]
+[ext_resource type="PackedScene" uid="uid://crrapcj1uf8l3" path="res://scenes/logs_pile.tscn" id="2_u7x85"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v1c5h"]
 height = 5.46768
@@ -11,8 +11,10 @@ height = 5.46768
 size = Vector3(1, 5.67512, 1)
 
 [node name="Trunk" type="RigidBody3D" groups=["Tree"]]
+mass = 50.0
+angular_damp = 2.0
 script = ExtResource("1_arhsj")
-next_scene = ExtResource("2_bxnsu")
+next_scene = ExtResource("2_u7x85")
 health = 3
 impulse_force = 8.0
 

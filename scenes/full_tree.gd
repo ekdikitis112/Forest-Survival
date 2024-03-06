@@ -1,4 +1,4 @@
-extends "res://scenes/Tree.gd"
+extends Trees
 
 func _ready():
 	pass
@@ -6,7 +6,7 @@ func _ready():
 func die():
 	$TreeShape.disabled = true
 	$StumpShape.disabled = false
-	$FullTree.visible = true
+	$FullTree.visible = false
 	$stump.visible = true
 	
 	#call inherited function

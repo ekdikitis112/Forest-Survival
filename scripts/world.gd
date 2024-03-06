@@ -105,6 +105,7 @@ func updateVisibleChunk():
 				#if chunk doesnt exist, create chunk
 				var chunk := chunk_mesh_scene.instantiate()
 				Chunks.add_child(chunk)
+				
 				#set chunk parameters
 				chunk.Terrain_Max_Height = terrain_height
 				#set chunk world position
