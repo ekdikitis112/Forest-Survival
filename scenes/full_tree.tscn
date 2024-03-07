@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://4a6o21gvrlnk" path="res://scenes/trunk.tscn" id="2_gpw8k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fkvy3"]
-size = Vector3(3.37022, 7.57293, 3.12547)
+size = Vector3(3.30266, 7.84589, 3.46148)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_30ttn"]
 size = Vector3(0.65234, 0.883484, 0.790951)
@@ -24,12 +24,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0686107, 0, -0.0476721)
 visible = false
 
 [node name="TreeShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00802994, 3.73463, -0.217566)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0623379, 3.9931, 0.00883156)
 shape = SubResource("BoxShape3D_fkvy3")
 
 [node name="StumpShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0.000872665, 4.11233e-07, 1, -0.000471239, -0.000872664, 0.000471239, 1, 0.0133327, 0.406682, -0.0321395)
-visible = false
 shape = SubResource("BoxShape3D_30ttn")
 disabled = true
 

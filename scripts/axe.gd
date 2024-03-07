@@ -15,5 +15,5 @@ func _on_body_entered(body):
 	body.take_damage(axe_damage)
 	$Hit.play()
 
-func _physics_process(delta):
-	position = get_parent().position + Vector3(1,-1,-0.8)
+func _physics_process(_delta):
+	position = get_parent().position + Vector3(1,-1.2,-0.9)

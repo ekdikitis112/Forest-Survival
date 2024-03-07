@@ -17,9 +17,14 @@
 [ext_resource type="Resource" uid="uid://cwho1cseci8ff" path="res://item/items/apple.tres" id="13_ag3ob"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dfsmw"]
+noise_type = 0
 frequency = 0.0058
-fractal_lacunarity = 1.0
-fractal_gain = 2.0
+fractal_octaves = 8
+fractal_lacunarity = 0.8
+fractal_gain = 0.8
+domain_warp_enabled = true
+domain_warp_fractal_octaves = 8
+domain_warp_fractal_gain = 0.8
 
 [sub_resource type="Gradient" id="Gradient_rctfw"]
 offsets = PackedFloat32Array(0, 0.3, 0.7, 1)

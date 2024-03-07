@@ -73,7 +73,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_aohim")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_58u73"]
-size = Vector3(0.470871, 1.31137, 2.07992)
+size = Vector3(0.593386, 1.30318, 2.00181)
 
 [sub_resource type="Animation" id="Animation_p8lqk"]
 length = 0.001
@@ -92,7 +92,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_srfv3"]
 resource_name = "chop"
-length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -100,10 +99,10 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.198211, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.0980213, -0.483588, -0.492035), Vector3(-0.279133, -0.76853, -0.986507), Vector3(-0.279133, -0.258789, -0.986507), Vector3(-0.279133, 0.19566, -0.986506), Vector3(-0.321403, 0.994397, -1.0531), Vector3(-0.321403, 1.19045, -1.0531), Vector3(-0.321141, 1.53764, -1.05243), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0.0980213, -0.483588, -0.492035), Vector3(-0.279133, -0.76853, -0.986507), Vector3(-0.279133, -0.258789, -0.986507), Vector3(-0.279133, 0.19566, -0.986506), Vector3(-0.321403, 0.994397, -1.0531), Vector3(-0.321403, 1.19045, -1.0531), Vector3(-0.321141, 1.53764, -1.05243), Vector3(-0.321141, 1.77303, -1.05243), Vector3(0, 0, 0)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -142,6 +141,7 @@ _data = {
 }
 
 [node name="Axe" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_iqlfb")
 
 [node name="Cone" type="MeshInstance3D" parent="."]
@@ -155,7 +155,7 @@ mesh = SubResource("ArrayMesh_ojgrt")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02108, 4.53903, -0.287858)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00683011, 4.54312, -0.352315)
 shape = SubResource("BoxShape3D_58u73")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

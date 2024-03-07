@@ -1,26 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://crrapcj1uf8l3"]
+[gd_scene load_steps=8 format=3 uid="uid://crrapcj1uf8l3"]
 
 [ext_resource type="PackedScene" uid="uid://ckiprosx3q166" path="res://scenes/stick.tscn" id="1_6jx1o"]
 [ext_resource type="Script" path="res://scenes/logs_pile.gd" id="1_fuhk6"]
-[ext_resource type="Script" path="res://item/item_data.gd" id="2_d2qqp"]
+[ext_resource type="Resource" uid="uid://crku21vkt1wxp" path="res://item/items/stick.tres" id="2_v22cj"]
 [ext_resource type="Script" path="res://inventory/slot_data.gd" id="3_5voei"]
-[ext_resource type="Texture2D" uid="uid://b04mkfwv4fviw" path="res://item/#1 - Transparent Icons.png" id="3_ug6ty"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8weg1"]
-atlas = ExtResource("3_ug6ty")
-region = Rect2(0, 544, 32, 32)
-
-[sub_resource type="Resource" id="Resource_ydccp"]
-script = ExtResource("2_d2qqp")
-name = "Sticks"
-description = "Crafting Material"
-stackable = true
-texture = SubResource("AtlasTexture_8weg1")
-
-[sub_resource type="Resource" id="Resource_gwv07"]
+[sub_resource type="Resource" id="Resource_kkoch"]
 script = ExtResource("3_5voei")
-item_data = SubResource("Resource_ydccp")
-quantity = 5
+item_data = ExtResource("2_v22cj")
+quantity = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e7x67"]
 size = Vector3(1.76946, 0.396635, 0.530383)
@@ -33,7 +21,7 @@ collision_layer = 0
 mass = 10.0
 gravity_scale = 3.0
 script = ExtResource("1_fuhk6")
-slot_data = SubResource("Resource_gwv07")
+slot_data = SubResource("Resource_kkoch")
 
 [node name="stick" parent="." instance=ExtResource("1_6jx1o")]
 transform = Transform3D(-0.136368, 0.984717, -0.108332, -0.867407, -0.0658608, 0.493222, 0.478549, 0.161228, 0.863132, -0.731616, 0.218421, 0)

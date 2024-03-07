@@ -93,45 +93,19 @@ func generate_terrain(noise:FastNoiseLite,coords:Vector2,size:float,initailly_vi
 	var water = MeshInstance3D.new()
 	water.mesh = PlaneMesh.new()
 	water.mesh.material = load("res://assets/materials/water.tres")
-	water.position = Vector3(position_coord.x,0,position_coord.y)
+	water.position = Vector3(position_coord.x,-2,position_coord.y)
 	water.mesh.size = Vector2(Terrain_Size*2,Terrain_Size*2)
 	add_child(water)
 	
 	call_deferred("thread_complete",thread)
 
 func generate_trees(noise: FastNoiseLite):
-	for i in range(40,80):
+	for i in range(0,80):
 		var tree = load("res://scenes/full_tree.tscn").instantiate()
 		tree.position = Vector3(Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2),0,Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2))
 		tree.position.y = set_noise_position(tree.position,noise)
-		add_child(tree)
-	
-
-func populate(mult_mesh: MultiMeshInstance3D, noise: FastNoiseLite):
-	var vert = Vector3(0,0,0)
-	var close = false
-	
-	for i in mult_mesh.multimesh.instance_count:
-		while(true):
-			close = false
-			vert = Vector3(Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2),0,Globals.game_seed.randi_range(-Terrain_Size/2,Terrain_Size/2))
-			var new_tree_pos = Vector2(vert.x,vert.z)
-			for j in range(i,mult_mesh.multimesh.instance_count):
-				var tr_j = mult_mesh.multimesh.get_aabb().position
-				var old_tree_position = Vector2(tr_j.x,tr_j.z)
-				if old_tree_position.distance_to(new_tree_pos) <= 2:
-					close = true
-		
-			if not close:
-				vert.y = set_noise_position(vert,noise) - 0.7
-				mult_mesh.multimesh.set_instance_transform(i, Transform3D(Basis.IDENTITY,vert))
-				var collisionShape = CollisionShape3D.new()
-				collisionShape.shape = mult_mesh.multimesh.mesh.create_trimesh_shape()
-				var collisionNode = StaticBody3D.new()
-				collisionNode.transform =  Transform3D(Basis.IDENTITY,vert)
-				collisionNode.add_child(collisionShape)
-				mult_mesh.add_child(collisionNode)
-				break
+		if tree.position.y > 0.5:
+			add_child(tree)
 
 func set_noise_position(vertex: Vector3, noise: FastNoiseLite):
 	return noise.get_noise_2d(position.x+vertex.x,position.z+vertex.z) * Terrain_Max_Height

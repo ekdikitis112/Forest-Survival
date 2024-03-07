@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://csb2ekx564bye" path="res://scenes/axe.tscn" id="4_m6reb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_poak8"]
+radius = 0.39189
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_frrm0"]
 height = 1.2

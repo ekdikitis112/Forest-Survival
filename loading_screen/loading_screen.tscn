@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://rslvmvm6ra7v"]
+
+[ext_resource type="Script" path="res://loading_screen/loading_screen.gd" id="1_uivx6"]
+[ext_resource type="Theme" uid="uid://dxexyvotr4ywf" path="res://assets/UI/Main Menu UI Theme.tres" id="2_8ttj5"]
+
+[sub_resource type="Animation" id="Animation_e2303"]
+resource_name = "start_load"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1152, -0.25, 0, 0.212447, -1196.29, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8)
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.905268),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"loading_screen_has_full_coverage"],
+"method": &"emit_signal"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:anchors_preset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_oc3p3"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:anchors_preset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+
+[sub_resource type="Animation" id="Animation_5nhci"]
+resource_name = "end_load"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1152, -0.25, 0, 0.212447, -1196.29),
+"times": PackedFloat32Array(0, 0.8)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7dwa7"]
+_data = {
+"RESET": SubResource("Animation_oc3p3"),
+"end_load": SubResource("Animation_5nhci"),
+"start_load": SubResource("Animation_e2303")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xnay"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="loading_screen" type="CanvasLayer"]
+layer = 10
+follow_viewport_enabled = true
+script = ExtResource("1_uivx6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7dwa7")
+}
+autoplay = "start_load"
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5xnay")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 83.0
+grow_horizontal = 2
+theme = ExtResource("2_8ttj5")
+text = "Loading "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.5
+offset_top = -13.5
+offset_right = 264.5
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
