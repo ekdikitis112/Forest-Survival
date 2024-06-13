@@ -11,7 +11,7 @@ var external_inventory_owner
 @onready var external_inventory: PanelContainer = $ExternalInventory
 @onready var equip_inventory = $EquipInventory
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5,5)
 	

@@ -18,6 +18,6 @@ func set_world():
 	LoadManager.load_scene("res://scenes/world.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 

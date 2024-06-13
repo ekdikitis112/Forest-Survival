@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjyl3ec21dvy3"]
+
+[ext_resource type="Script" path="res://inventory/Inventory_Interface.gd" id="1_qqtni"]
+[ext_resource type="PackedScene" uid="uid://dpa0a8u80jdbt" path="res://inventory/inventory.tscn" id="2_8h7yv"]
+[ext_resource type="PackedScene" uid="uid://bvi3btkaanoh" path="res://inventory/slot.tscn" id="3_w1k8r"]
+[ext_resource type="PackedScene" uid="uid://dam617fwrjtit" path="res://inventory/hot_bar_inventory.tscn" id="4_ubqmm"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="InventoryInterface" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qqtni")
+
+[node name="PlayerInventory" parent="InventoryInterface" instance=ExtResource("2_8h7yv")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="InventoryInterface" instance=ExtResource("2_8h7yv")]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 490.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="InventoryInterface" instance=ExtResource("2_8h7yv")]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_right = 0.0
+grow_horizontal = 0
+
+[node name="GrabbedSlot" parent="InventoryInterface" instance=ExtResource("3_w1k8r")]
+visible = false
+modulate = Color(1, 1, 1, 0.47451)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="HotBarInventory" parent="." instance=ExtResource("4_ubqmm")]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 430.0
+offset_bottom = 90.0
+
+[connection signal="gui_input" from="InventoryInterface" to="InventoryInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="InventoryInterface" to="InventoryInterface" method="_on_visibility_changed"]

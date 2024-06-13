@@ -252,8 +252,8 @@ func interact():
 		interact_ray.get_collider().player_interact()
 
 func get_drop_position() -> Vector3:
-	var direction = -camera_3d.global_transform.basis.z
-	return camera_3d.global_position + direction
+	var dir = -camera_3d.global_transform.basis.z
+	return camera_3d.global_position + dir
 
 func heal(heal_value: int):
 	health += heal_value

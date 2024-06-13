@@ -12,6 +12,7 @@ size = Vector3(3.30266, 7.84589, 3.46148)
 size = Vector3(0.65234, 0.883484, 0.790951)
 
 [node name="fullTree" type="StaticBody3D" groups=["Tree"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_xw76y")
 next_scene = ExtResource("2_gpw8k")
 impulse_force = 2.0
@@ -29,6 +30,7 @@ shape = SubResource("BoxShape3D_fkvy3")
 
 [node name="StumpShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0.000872665, 4.11233e-07, 1, -0.000471239, -0.000872664, 0.000471239, 1, 0.0133327, 0.406682, -0.0321395)
+visible = false
 shape = SubResource("BoxShape3D_30ttn")
 disabled = true
 

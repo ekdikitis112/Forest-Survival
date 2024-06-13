@@ -9,6 +9,7 @@
 radius = 0.39189
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_frrm0"]
+radius = 0.384806
 height = 1.2
 
 [sub_resource type="Animation" id="Animation_be8u3"]
@@ -113,6 +114,7 @@ shape = SubResource("CapsuleShape3D_poak8")
 
 [node name="crouching_collision_shape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.592886, 0)
+visible = false
 shape = SubResource("CapsuleShape3D_frrm0")
 disabled = true
 
@@ -158,4 +160,4 @@ collision_mask = 4
 
 [node name="Axe" parent="neck/head" instance=ExtResource("4_m6reb")]
 unique_name_in_owner = true
-transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, -1.8, 0)
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.797696, -0.902121, -0.664181)
