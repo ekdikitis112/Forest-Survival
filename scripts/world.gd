@@ -29,7 +29,7 @@ var Chunks: Node3D = Node3D.new()
 func _unhandled_input(event):
 	if event is InputEventKey and event.is_pressed() and event.keycode == KEY_ESCAPE:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		var pause_menu = load("res://scenes/pause_menu.tscn").instance()
+		var pause_menu = load("res://scenes/pause_menu.tscn").instantiate()
 		add_child(pause_menu)
 		get_tree().paused = true
 
@@ -125,7 +125,7 @@ func toggle_inventory_interface(external_inventory_owner = null):
 		inventory_interface.clear_external_inventory()
 
 func _on_inventory_interface_drop_slot_data(slot_data):
-	var pick_up = PickUp.instance()
+	var pick_up = PickUp.instantiate()
 	pick_up.slot_data = slot_data
 	pick_up.global_transform.origin = player.get_drop_position() + Vector3(1, 0, 1)
 	add_child(pick_up)
